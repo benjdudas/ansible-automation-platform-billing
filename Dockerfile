@@ -10,11 +10,13 @@ ARG ZUUL_SIBLINGS
 
 COPY . /tmp/src
 
-## Need to login first with sub-manager before assembly
-RUN env
+## Mod centos repos since mirror list is EOL
 RUN sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/CentOS-*.repo
 RUN sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/CentOS-*.repo
 RUN sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/CentOS-*.repo
+
+## Install pg_conf
+RUN dnf install libpq-devel
 
 RUN assemble
 
