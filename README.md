@@ -1,6 +1,8 @@
 Ansible Automation Platform Billing
 ===================================
 
+# Test Konflux Run
+
 Captures automation usage for reporting to hyperscaler metering systems.
 
 This module uses the Django framework (ORM) and requires a PostgreSQL database
