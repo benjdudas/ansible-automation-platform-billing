@@ -11,6 +11,10 @@ ARG ZUUL_SIBLINGS
 COPY . /tmp/src
 
 ## Need to login first with sub-manager before assembly
+RUN sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/CentOS-*.repo
+RUN sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/CentOS-*.repo
+RUN sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/CentOS-*.repo
+RUN dnf install -y subscription-manager
 RUN subscription-manager register --org=$RH_ORG --activationkey=$ACTIVATION_KEY
 
 RUN assemble
