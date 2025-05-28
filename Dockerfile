@@ -9,6 +9,11 @@ ARG ANSIBLE_BRANCH
 ARG ZUUL_SIBLINGS
 
 COPY . /tmp/src
+
+## Need to login first with sub-manager before assembly
+RUN microdnf install -y subscription-manager 
+RUN subscription-manager register --org=$RH_ORG --activationkey=$ACTIVATION_KEY
+
 RUN assemble
 
 FROM $PYTHON_BASE_IMAGE
